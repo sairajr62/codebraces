@@ -1,438 +1,620 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Building2, 
   ArrowRight, 
-  QrCode, 
   Sparkles, 
   Globe, 
   ShoppingCart, 
   Cpu, 
   CheckCircle2, 
-  Smartphone, 
   Layers, 
-  Zap, 
   ChevronRight,
-  Star,
-  Users,
   Clock,
-  Send,
-  Wrench,
-  ShieldCheck
+  ExternalLink,
+  Terminal,
+  TrendingUp,
+  Boxes
 } from 'lucide-react';
+
+import Spotlight from '../components/ui/Spotlight';
+import TextGenerateEffect from '../components/ui/TextGenerateEffect';
+import FlipWords from '../components/ui/FlipWords';
+import BorderBeam from '../components/ui/BorderBeam';
+import CardSpotlight from '../components/ui/CardSpotlight';
+import AnimatedCounter from '../components/ui/AnimatedCounter';
+import InfiniteMarquee from '../components/ui/InfiniteMarquee';
+import FadeInSection from '../components/ui/FadeInSection';
 
 const Home = () => {
   const navigate = useNavigate();
-
-  // Project Estimator State
+  const [activeHeroTab, setActiveHeroTab] = useState('maintenance');
   const [selectedProjectType, setSelectedProjectType] = useState('ecommerce');
+
+  const MAINTENANCE_PORTAL_URL = 'https://maintenance-pro.netlify.app/login';
+
+  const marqueeTech = [
+    { name: "React 18", cat: "Frontend" },
+    { name: "Next.js", cat: "SSR & Web" },
+    { name: "Node.js", cat: "Backend" },
+    { name: "TypeScript", cat: "Language" },
+    { name: "MongoDB", cat: "NoSQL DB" },
+    { name: "PostgreSQL", cat: "SQL DB" },
+    { name: "Tailwind CSS", cat: "Styling" },
+    { name: "UPI Dynamic QR", cat: "Fintech" },
+    { name: "Razorpay / Stripe", cat: "Payments" },
+    { name: "Docker & AWS", cat: "Cloud" },
+    { name: "Python / FastAPI", cat: "Automation" },
+  ];
 
   const estimatorData = {
     maintenance: {
       title: "Society Maintenance System",
-      desc: "Cloud platform with Flat QR UPI payments, WhatsApp billing, and treasurer ledger.",
-      timeline: "Instant Setup (24 - 48 Hours)",
+      desc: "Turnkey cloud operating system for residential societies with flat-wise QR UPI billing and treasurer controls.",
+      timeline: "Instant Deploy (24 - 48 Hours)",
       features: ["Flat-wise dynamic QR codes", "Automated WhatsApp invoices", "Admin dues reconciliation", "Defaulter management", "Society balance sheet export"],
-      badge: "Flagship SaaS"
+      badge: "Flagship SaaS",
+      color: "from-[#FD6703] to-[#ff7e29]"
     },
     informational: {
       title: "Informational & Corporate Website",
-      desc: "Fast, elegant business websites built to showcase your brand and generate qualified inbound leads.",
+      desc: "Fast, elegant business websites built to showcase your brand authority and convert inbound visitors.",
       timeline: "1 - 2 Weeks",
-      features: ["Custom bespoke UI/UX design", "Mobile-responsive layouts", "SEO optimization & meta tags", "Fast loading Vite/React architecture", "Contact forms & Google Analytics"],
-      badge: "Web Service"
+      features: ["Bespoke 21st.dev UI/UX design", "Mobile-first responsive fluid grid", "Technical on-page SEO & Schema", "Sub-second Vite/React speed", "Lead funnels & analytics"],
+      badge: "Web Service",
+      color: "from-sky-500 to-blue-600"
     },
     ecommerce: {
       title: "E-Commerce Online Store",
-      desc: "Full-scale online stores engineered for high conversion rates, seamless checkout, and sales.",
+      desc: "Full-scale online stores engineered for high conversion rates, frictionless checkout, and instant payment settlement.",
       timeline: "2 - 4 Weeks",
-      features: ["Product catalog & smart filtering", "Secure payment gateways (UPI, Cards, NetBanking)", "Shopping cart & checkout flow", "Order management & notifications", "Inventory & promo coupon system"],
-      badge: "Web Service"
+      features: ["Product catalog & smart facet filters", "UPI, Cards, NetBanking, COD checkout", "Shopping cart with abandonment recovery", "Order fulfillment & WhatsApp updates", "Inventory & coupon engine"],
+      badge: "Web Service",
+      color: "from-emerald-500 to-teal-600"
     },
     custom: {
       title: "Custom Software & Web Application",
-      desc: "Tailored web applications, internal operational tools, and SaaS MVPs with custom databases.",
+      desc: "Tailored web applications, internal operational tools, and SaaS MVPs built around your proprietary business logic.",
       timeline: "3 - 6 Weeks",
-      features: ["Role-based authentication & RBAC", "Complex database modeling (Mongo/Postgres)", "REST/GraphQL API integrations", "Interactive admin dashboards & analytics", "Cloud deployment & automated CI/CD"],
-      badge: "Engineering"
+      features: ["Role-based access control (RBAC)", "Scalable relational & document schemas", "RESTful & GraphQL microservices", "Interactive admin analytics dashboards", "Cloud CI/CD & zero-downtime deploy"],
+      badge: "Engineering",
+      color: "from-purple-500 to-indigo-600"
     }
   };
 
   return (
-    <div className="bg-[#191b1f] text-gray-200 min-h-screen">
-      {/* HERO SECTION */}
-      <section className="relative pt-12 pb-24 overflow-hidden border-b border-[#2d3038]">
-        {/* Glow effects */}
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-[#FD6703]/10 rounded-full blur-[140px] pointer-events-none" />
-        <div className="absolute top-20 right-10 w-[350px] h-[350px] bg-amber-500/5 rounded-full blur-[120px] pointer-events-none" />
+    <div className="bg-[#0b0c0e] text-gray-200 min-h-screen relative overflow-hidden">
+      
+      {/* Background Spotlight */}
+      <Spotlight className="-top-40 left-0 md:left-60 md:-top-20" fill="#FD6703" />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center max-w-3xl mx-auto space-y-6">
+      {/* Grid Pattern Overlay */}
+      <div className="absolute inset-0 bg-grid-pattern opacity-60 pointer-events-none z-0" />
+
+      {/* HERO SECTION */}
+      <section className="relative pt-16 pb-24 z-10">
+        <FadeInSection direction="up" delay={0.1} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <div className="text-center max-w-4xl mx-auto space-y-6">
             
-            {/* Pill Banner */}
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#262930] border border-[#FD6703]/40 text-xs font-bold shadow-lg shadow-[#FD6703]/5">
-              <span className="w-2 h-2 rounded-full bg-[#FD6703] animate-pulse" />
-              <span className="text-[#FD6703] uppercase tracking-wider">Meet Our Flagship Product</span>
-              <span className="text-gray-400">|</span>
-              <Link to="/maintenance-system" className="text-white hover:text-[#FD6703] transition-colors flex items-center gap-1">
-                <span>Society Maintenance System</span>
-                <ChevronRight className="w-3.5 h-3.5" />
-              </Link>
+            {/* Shimmer Announcement Pill */}
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.03] border border-white/10 backdrop-blur-xl shadow-inner text-xs font-semibold text-gray-300">
+              <span className="flex h-2 w-2 relative">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FD6703] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#FD6703]"></span>
+              </span>
+              <span className="text-[#FD6703] font-bold">Flagship Product Live</span>
+              <span className="text-white/20">|</span>
+              <a 
+                href={MAINTENANCE_PORTAL_URL} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="hover:text-white transition-colors flex items-center gap-1 font-medium"
+              >
+                <span>Maintenance System 2.0</span>
+                <ExternalLink className="w-3 h-3 text-[#FD6703]" />
+              </a>
             </div>
 
-            <h1 className="text-4xl sm:text-6xl font-extrabold text-white tracking-tight leading-[1.15]">
-              Building Tomorrow's Software & <span className="text-[#FD6703]">SaaS Products</span>
-            </h1>
+            {/* Display Headline */}
+            <TextGenerateEffect words="Engineering Scalable Software & Modern SaaS Platforms" className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.1]" />
 
-            <p className="text-base sm:text-xl text-[#9da4b2] max-w-2xl mx-auto leading-relaxed">
-              We engineer our flagship <strong>Housing Society Maintenance Operating System</strong> and provide high-impact 
-              <strong> Custom Software</strong> and <strong>Web Development</strong> — from lightning-fast informational websites to high-volume e-commerce stores.
-            </p>
+            {/* Subheading */}
+            <div className="text-base sm:text-xl text-[#9da4b2] max-w-2xl mx-auto leading-relaxed">
+              We build and operate <FlipWords words={['Automated', 'Reconciled', 'Audited', 'Transparent']} /> <strong className="text-white">Society Maintenance Systems</strong> alongside bespoke <strong className="text-white">Custom Software</strong> and high-performance <strong className="text-white">Web & E-Commerce Platforms</strong>.
+            </div>
 
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-3">
-              <Link
-                to="/maintenance-system"
-                className="w-full sm:w-auto px-8 py-4 rounded-xl font-bold bg-[#FD6703] text-[#191b1f] hover:bg-[#e65c00] transition-all duration-200 flex items-center justify-center gap-2 shadow-xl shadow-[#FD6703]/25 hover:scale-105"
+            {/* Glowing CTA Buttons */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
+              <a
+                href={MAINTENANCE_PORTAL_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto px-8 py-3.5 rounded-full font-bold bg-[#FD6703] text-white hover:bg-[#e65c00] transition-all duration-200 flex items-center justify-center gap-2 shadow-[0_0_40px_-8px_rgba(253,103,3,0.5)] hover:scale-105"
               >
-                <Building2 className="w-5 h-5 text-[#191b1f]" />
-                <span>Explore Maintenance System</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
+                <span>Launch Maintenance Portal</span>
+                <ExternalLink className="w-4 h-4" />
+              </a>
 
               <Link
                 to="/services"
-                className="w-full sm:w-auto px-8 py-4 rounded-xl font-semibold bg-[#262930] hover:bg-[#323640] text-white border border-[#3e4450] transition-all duration-200 flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-8 py-3.5 rounded-full font-semibold bg-white/[0.04] hover:bg-white/[0.08] text-white border border-white/10 transition-all duration-200 flex items-center justify-center gap-2 backdrop-blur-md"
               >
                 <Layers className="w-4 h-4 text-[#FD6703]" />
-                <span>View Web & Software Services</span>
+                <span>Explore Dev Services</span>
               </Link>
             </div>
 
-            {/* Quick credibility stats */}
-            <div className="pt-12 grid grid-cols-2 sm:grid-cols-4 gap-4 text-left">
-              <div className="p-4 rounded-2xl bg-[#202328]/80 border border-[#2f343e] backdrop-blur-sm">
-                <div className="text-2xl sm:text-3xl font-black text-white">99.4%</div>
-                <div className="text-xs text-[#9da4b2] mt-1 font-medium">Society Dues Cleared</div>
-              </div>
-              <div className="p-4 rounded-2xl bg-[#202328]/80 border border-[#2f343e] backdrop-blur-sm">
-                <div className="text-2xl sm:text-3xl font-black text-[#FD6703]">30+</div>
-                <div className="text-xs text-[#9da4b2] mt-1 font-medium">Delivered Projects</div>
-              </div>
-              <div className="p-4 rounded-2xl bg-[#202328]/80 border border-[#2f343e] backdrop-blur-sm">
-                <div className="text-2xl sm:text-3xl font-black text-white">24/7</div>
-                <div className="text-xs text-[#9da4b2] mt-1 font-medium">Automated WhatsApp Alerts</div>
-              </div>
-              <div className="p-4 rounded-2xl bg-[#202328]/80 border border-[#2f343e] backdrop-blur-sm">
-                <div className="text-2xl sm:text-3xl font-black text-emerald-400">100%</div>
-                <div className="text-xs text-[#9da4b2] mt-1 font-medium">Transparent Delivery</div>
-              </div>
+            {/* 4 Micro-Metric Pills */}
+            <div className="pt-8 grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-3xl mx-auto">
+              <CardSpotlight className="p-3 rounded-2xl bg-white/[0.02] border border-white/[0.07] backdrop-blur-sm">
+                <div className="text-xl sm:text-2xl font-black text-white font-mono flex items-center justify-center">
+                  <AnimatedCounter target={99.4} decimals={1} suffix="%" />
+                </div>
+                <div className="text-[11px] text-gray-400 mt-0.5">Society Collection Rate</div>
+              </CardSpotlight>
+              <CardSpotlight className="p-3 rounded-2xl bg-white/[0.02] border border-white/[0.07] backdrop-blur-sm">
+                <div className="text-xl sm:text-2xl font-black text-[#FD6703] font-mono flex items-center justify-center">
+                  <AnimatedCounter target={0} suffix=" mins" />
+                </div>
+                <div className="text-[11px] text-gray-400 mt-0.5">Manual Reconciliation</div>
+              </CardSpotlight>
+              <CardSpotlight className="p-3 rounded-2xl bg-white/[0.02] border border-white/[0.07] backdrop-blur-sm">
+                <div className="text-xl sm:text-2xl font-black text-white font-mono flex items-center justify-center">
+                  &lt; <AnimatedCounter target={1} suffix="s" />
+                </div>
+                <div className="text-[11px] text-gray-400 mt-0.5">Web Page Speed</div>
+              </CardSpotlight>
+              <CardSpotlight className="p-3 rounded-2xl bg-white/[0.02] border border-white/[0.07] backdrop-blur-sm">
+                <div className="text-xl sm:text-2xl font-black text-emerald-400 font-mono flex items-center justify-center">
+                  <AnimatedCounter target={100} suffix="%" />
+                </div>
+                <div className="text-[11px] text-gray-400 mt-0.5">Digital Audit Trail</div>
+              </CardSpotlight>
             </div>
 
           </div>
-        </div>
-      </section>
 
-      {/* FLAGSHIP PRODUCT HIGHLIGHT SECTION */}
-      <section className="py-20 bg-[#16181b] border-b border-[#2d3038] relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
+          {/* INTERACTIVE HERO SHOWCASE COCKPIT */}
+          <div className="mt-14 max-w-5xl mx-auto bg-[#121419]/90 rounded-3xl border border-white/10 shadow-[0_20px_70px_-15px_rgba(0,0,0,0.8)] overflow-hidden backdrop-blur-2xl">
             
-            {/* Left Column: Product Narrative */}
-            <div className="lg:w-1/2 space-y-6">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#FD6703]/15 text-[#FD6703] border border-[#FD6703]/30 text-xs font-bold uppercase tracking-wider">
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>CodeBraces Flagship Innovation</span>
-              </div>
-
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight">
-                Society Maintenance Management, <span className="text-[#FD6703]">Reimagined</span>
-              </h2>
-
-              <p className="text-base text-[#9da4b2] leading-relaxed">
-                Housing societies and residential complexes struggle every month with delayed payments, lost receipts, and tedious UPI matching. 
-                Our flagship <strong>CodeBraces Maintenance System</strong> replaces manual registers with automated flat-wise QR codes, WhatsApp invoicing, and real-time committee ledger balancing.
-              </p>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-                <div className="flex items-start gap-3 p-3.5 rounded-xl bg-[#202328] border border-[#2e333d]">
-                  <QrCode className="w-5 h-5 text-[#FD6703] mt-0.5 shrink-0" />
-                  <div>
-                    <h4 className="text-sm font-bold text-white">Dynamic UPI QR Codes</h4>
-                    <p className="text-xs text-[#9da4b2]">Pre-tagged with flat numbers for instantaneous zero-error reconciliation.</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3 p-3.5 rounded-xl bg-[#202328] border border-[#2e333d]">
-                  <Send className="w-5 h-5 text-[#38bdf8] mt-0.5 shrink-0" />
-                  <div>
-                    <h4 className="text-sm font-bold text-white">WhatsApp Delivery</h4>
-                    <p className="text-xs text-[#9da4b2]">Automatic reminders and PDF tax receipts delivered right to resident smartphones.</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3 p-3.5 rounded-xl bg-[#202328] border border-[#2e333d]">
-                  <ShieldCheck className="w-5 h-5 text-[#34d399] mt-0.5 shrink-0" />
-                  <div>
-                    <h4 className="text-sm font-bold text-white">Treasurer Control Panel</h4>
-                    <p className="text-xs text-[#9da4b2]">Live tracking of defaulters, expenses, sinking funds, and audit balances.</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3 p-3.5 rounded-xl bg-[#202328] border border-[#2e333d]">
-                  <Wrench className="w-5 h-5 text-[#f97316] mt-0.5 shrink-0" />
-                  <div>
-                    <h4 className="text-sm font-bold text-white">Facility Ticket System</h4>
-                    <p className="text-xs text-[#9da4b2]">Track lift repairs, water tankers, security, and resident complaints.</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex flex-wrap gap-4 pt-4">
-                <Link
-                  to="/maintenance-system"
-                  className="px-6 py-3 rounded-xl font-bold bg-[#FD6703] text-black hover:bg-[#e65c00] transition-all flex items-center gap-2 shadow-lg shadow-[#FD6703]/20"
+            {/* Cockpit Topbar Tabs */}
+            <div className="flex flex-wrap items-center justify-between border-b border-white/[0.08] px-6 py-3 bg-[#0d0f12]/80 gap-3">
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setActiveHeroTab('maintenance')}
+                  className={`px-3.5 py-1.5 rounded-full text-xs font-semibold flex items-center gap-2 transition-all ${
+                    activeHeroTab === 'maintenance'
+                      ? 'bg-[#FD6703] text-white shadow-md shadow-[#FD6703]/25 font-bold'
+                      : 'text-gray-400 hover:text-white hover:bg-white/[0.05]'
+                  }`}
                 >
-                  <span>Explore Product Features & Calculator</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-                <Link
-                  to="/login"
-                  className="px-6 py-3 rounded-xl font-semibold bg-[#262930] hover:bg-[#30353f] text-white border border-[#3e4450] transition-all flex items-center gap-2"
+                  <Building2 className="w-3.5 h-3.5" />
+                  <span>Maintenance System (Flagship)</span>
+                </button>
+                <button
+                  onClick={() => setActiveHeroTab('software')}
+                  className={`px-3.5 py-1.5 rounded-full text-xs font-semibold flex items-center gap-2 transition-all ${
+                    activeHeroTab === 'software'
+                      ? 'bg-[#FD6703] text-white shadow-md shadow-[#FD6703]/25 font-bold'
+                      : 'text-gray-400 hover:text-white hover:bg-white/[0.05]'
+                  }`}
                 >
-                  <Smartphone className="w-4 h-4 text-[#FD6703]" />
-                  <span>Try Demo Login</span>
-                </Link>
+                  <Terminal className="w-3.5 h-3.5" />
+                  <span>Custom Architecture</span>
+                </button>
+                <button
+                  onClick={() => setActiveHeroTab('ecommerce')}
+                  className={`px-3.5 py-1.5 rounded-full text-xs font-semibold flex items-center gap-2 transition-all ${
+                    activeHeroTab === 'ecommerce'
+                      ? 'bg-[#FD6703] text-white shadow-md shadow-[#FD6703]/25 font-bold'
+                      : 'text-gray-400 hover:text-white hover:bg-white/[0.05]'
+                  }`}
+                >
+                  <ShoppingCart className="w-3.5 h-3.5" />
+                  <span>E-Commerce Engine</span>
+                </button>
               </div>
 
+              <div className="flex items-center gap-2 text-[11px] text-emerald-400 font-mono">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                <span>Live Interactive Demo</span>
+              </div>
             </div>
 
-            {/* Right Column: Live Interactive Preview Card */}
-            <div className="lg:w-1/2 w-full">
-              <div className="bg-[#202328] rounded-3xl border border-[#393e47] p-6 shadow-2xl relative overflow-hidden">
-                
-                {/* Window Header */}
-                <div className="flex items-center justify-between pb-4 mb-4 border-b border-[#30353f]">
-                  <div className="flex items-center gap-2">
-                    <span className="w-3 h-3 rounded-full bg-red-500/80" />
-                    <span className="w-3 h-3 rounded-full bg-yellow-500/80" />
-                    <span className="w-3 h-3 rounded-full bg-green-500/80" />
-                    <span className="text-xs text-gray-400 font-mono ml-2">codebraces.app/portal</span>
-                  </div>
-                  <span className="text-[11px] font-semibold bg-[#FD6703]/20 text-[#FD6703] px-2.5 py-0.5 rounded-full">
-                    Live Society Preview
-                  </span>
-                </div>
+            {/* Cockpit Content Window */}
+            <div className="p-6 sm:p-8">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeHeroTab}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {/* TAB 1: Maintenance System Demo */}
+                  {activeHeroTab === 'maintenance' && (
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                      
+                      {/* Interactive QR Phone Card */}
+                      <div className="md:col-span-6 bg-[#16181f] p-6 rounded-2xl border border-white/10 relative overflow-hidden shadow-xl">
+                        <div className="flex justify-between items-center text-xs pb-3 border-b border-white/10">
+                          <div>
+                            <div className="font-bold text-white">Green Meadows CHS</div>
+                            <div className="text-[10px] text-gray-400">Wing B • Flat #402</div>
+                          </div>
+                          <span className="px-2 py-0.5 rounded-full bg-[#FD6703]/20 text-[#FD6703] font-mono text-[10px] font-bold border border-[#FD6703]/30">
+                            September Dues
+                          </span>
+                        </div>
 
-                {/* Simulated UI Content */}
-                <div className="space-y-4">
-                  {/* Top Society Banner */}
-                  <div className="bg-[#18191d] p-4 rounded-xl border border-[#2e333d] flex items-center justify-between">
-                    <div>
-                      <div className="text-sm font-bold text-white">Grand View Towers CHS</div>
-                      <div className="text-xs text-gray-400">Wing B • Flat #402 • Rajesh Sharma</div>
-                    </div>
-                    <div className="text-right">
-                      <span className="text-[10px] text-gray-400 uppercase">Status</span>
-                      <div className="text-xs font-bold text-amber-400">Bill Generated</div>
-                    </div>
-                  </div>
+                        <div className="my-5 flex flex-col items-center justify-center relative">
+                          <div className="p-4 bg-white rounded-2xl shadow-2xl relative overflow-hidden">
+                            <img src="/qr-code.jpg" alt="UPI QR Code - Flat B-402" className="w-36 h-36 object-contain" />
+                            
+                              <div className="absolute inset-x-0 h-1 bg-[#FD6703] shadow-[0_0_15px_#FD6703] animate-laser pointer-events-none" />
 
-                  {/* QR Box & Breakdown */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center bg-[#191b1f] p-4 rounded-xl border border-[#2e333d]">
-                    <div className="flex flex-col items-center justify-center p-3 bg-white rounded-lg shadow">
-                      <QrCode className="w-28 h-28 text-black" />
-                      <span className="text-[10px] font-mono text-gray-700 font-semibold mt-1">UPI: chs.cb@icici</span>
-                    </div>
+                          </div>
+                          <span className="text-[11px] font-mono text-gray-400 mt-2">UPI: chs.cb@icici</span>
+                        </div>
 
-                    <div className="space-y-2 text-xs">
-                      <div className="flex justify-between text-gray-400">
-                        <span>Maintenance Fee:</span>
-                        <span className="text-white font-medium">₹ 2,800</span>
+                        <div className="bg-[#0e1014] p-3 rounded-xl border border-white/10 flex items-center justify-between text-xs">
+                          <span className="text-gray-400">Total Amount:</span>
+                          <span className="text-lg font-black text-[#FD6703] font-mono">₹ 3,500.00</span>
+                        </div>
+
+                        <div className="mt-3 flex gap-2">
+                          <a
+                            href={MAINTENANCE_PORTAL_URL}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-full py-2.5 rounded-xl font-bold bg-[#FD6703] text-white hover:bg-[#e65c00] transition-all text-xs flex items-center justify-center gap-1.5 shadow-lg shadow-[#FD6703]/20"
+                          >
+                            <span>Test Live On maintenance-pro</span>
+                            <ExternalLink className="w-3.5 h-3.5" />
+                          </a>
+                        </div>
                       </div>
-                      <div className="flex justify-between text-gray-400">
-                        <span>Sinking Fund:</span>
-                        <span className="text-white font-medium">₹ 500</span>
+
+                      {/* Feature Breakdown */}
+                      <div className="md:col-span-6 space-y-4">
+                        <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#FD6703]">
+                          <Sparkles className="w-3.5 h-3.5" />
+                          <span>Zero Manual Accounting</span>
+                        </div>
+                        <h3 className="text-2xl font-bold text-white leading-tight">
+                          Automated Dues Collection, Instant Receipts & Committee Peace of Mind
+                        </h3>
+                        <p className="text-xs sm:text-sm text-[#9da4b2] leading-relaxed">
+                          Every flat gets an intelligent UPI dynamic QR code. When residents pay via Google Pay, PhonePe, or Paytm, the transaction auto-reconciles instantly, generating WhatsApp receipts without treasurer intervention.
+                        </p>
+
+                        <div className="space-y-2 pt-2 text-xs">
+                          <div className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.07] flex items-center justify-between">
+                            <span className="text-gray-300">September Inflow Reconciled:</span>
+                            <span className="font-bold text-emerald-400 font-mono">₹ 4,12,500 (98.2%)</span>
+                          </div>
+                          <div className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.07] flex items-center justify-between">
+                            <span className="text-gray-300">WhatsApp Receipt Speed:</span>
+                            <span className="font-bold text-white font-mono">&lt; 3 Seconds</span>
+                          </div>
+                        </div>
+
+                        <div className="pt-2">
+                          <Link
+                            to="/maintenance-system"
+                            className="text-xs font-bold text-[#FD6703] hover:underline flex items-center gap-1"
+                          >
+                            <span>Explore Complete Maintenance System Architecture</span>
+                            <ChevronRight className="w-4 h-4" />
+                          </Link>
+                        </div>
                       </div>
-                      <div className="flex justify-between text-gray-400">
-                        <span>Water & Common Power:</span>
-                        <span className="text-white font-medium">₹ 200</span>
+
+                    </div>
+                  )}
+
+                  {/* TAB 2: Custom Software Architecture Terminal */}
+                  {activeHeroTab === 'software' && (
+                    <div className="space-y-4">
+                      <div className="bg-[#0b0c0e] rounded-2xl border border-white/10 p-5 font-mono text-xs text-gray-300 space-y-3">
+                        <div className="flex items-center justify-between pb-3 border-b border-white/10 text-gray-500">
+                          <span className="flex items-center gap-1.5 text-white">
+                            <Terminal className="w-3.5 h-3.5 text-[#FD6703]" />
+                            <span>codebraces-core // api.society.ts</span>
+                          </span>
+                          <span className="text-emerald-400 text-[11px]">HTTP 200 OK • 18ms</span>
+                        </div>
+
+                        <pre className="text-gray-400 overflow-x-auto">
+{`// Dynamic Flat QR Settlement Pipeline
+export async function reconcileFlatSettlement(txHash: string) {
+  const verified = await upiGateway.verifyCallback(txHash);
+  if (!verified.isValid) throw new SettlementError("HASH_MISMATCH");
+
+  const ledger = await db.flats.update({
+    where: { unitId: verified.flatNumber },
+    data: { 
+      duesStatus: 'PAID',
+      paidAt: new Date(),
+      receiptNumber: generateGstReceipt()
+    }
+  });
+
+  await whatsappBot.dispatchReceiptPdf(ledger.residentPhone, ledger.receiptUrl);
+  return { status: 200, balance: ledger.societyReserveBalance };
+}`}
+                        </pre>
                       </div>
-                      <div className="pt-2 border-t border-[#343942] flex justify-between font-bold">
-                        <span className="text-white">Total Payable:</span>
-                        <span className="text-[#FD6703] text-sm">₹ 3,500.00</span>
+
+                      <div className="flex flex-wrap items-center justify-between gap-4 pt-2">
+                        <div className="text-xs text-gray-400">
+                          Production Stack: <strong className="text-white font-mono">TypeScript • Fastify • MongoDB • Redis</strong>
+                        </div>
+                        <Link
+                          to="/services#custom-software"
+                          className="px-4 py-2 rounded-full font-bold bg-[#FD6703] text-white text-xs hover:bg-[#e65c00] flex items-center gap-1"
+                        >
+                          <span>Custom Software Capabilities</span>
+                          <ArrowRight className="w-3.5 h-3.5" />
+                        </Link>
                       </div>
                     </div>
-                  </div>
+                  )}
 
-                  {/* Committee KPI Strip */}
-                  <div className="p-3.5 rounded-xl bg-[#252932] border border-[#353b47] flex items-center justify-between text-xs">
-                    <div>
-                      <span className="text-gray-400 block">September Collections</span>
-                      <span className="text-white font-bold text-sm">98.2% Done (₹ 4,12,500)</span>
+                  {/* TAB 3: E-Commerce Engine */}
+                  {activeHeroTab === 'ecommerce' && (
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+                      <div className="p-5 rounded-2xl bg-white/[0.02] border border-white/[0.07] space-y-2">
+                        <ShoppingCart className="w-8 h-8 text-[#FD6703] mx-auto" />
+                        <div className="text-xl font-bold text-white">Frictionless Cart</div>
+                        <p className="text-xs text-gray-400">1-click checkout flows with direct UPI Intent & Card tokens.</p>
+                      </div>
+
+                      <div className="p-5 rounded-2xl bg-white/[0.02] border border-white/[0.07] space-y-2">
+                        <TrendingUp className="w-8 h-8 text-emerald-400 mx-auto" />
+                        <div className="text-xl font-bold text-white">+34% Conversion</div>
+                        <p className="text-xs text-gray-400">Optimized for mobile shoppers with zero checkout friction.</p>
+                      </div>
+
+                      <div className="p-5 rounded-2xl bg-white/[0.02] border border-white/[0.07] space-y-2">
+                        <Boxes className="w-8 h-8 text-sky-400 mx-auto" />
+                        <div className="text-xl font-bold text-white">Sync & Dispatch</div>
+                        <p className="text-xs text-gray-400">Automatic Shiprocket order generation and WhatsApp tracking.</p>
+                      </div>
                     </div>
-                    <Link
-                      to="/maintenance-system"
-                      className="text-[#FD6703] hover:underline font-bold text-xs flex items-center gap-1"
-                    >
-                      <span>View Full MMS Tour</span>
-                      <ChevronRight className="w-3.5 h-3.5" />
-                    </Link>
-                  </div>
-
-                </div>
-
-              </div>
+                  )}
+                </motion.div>
+              </AnimatePresence>
             </div>
 
           </div>
 
-        </div>
+        </FadeInSection>
       </section>
 
-      {/* CORE SERVICES SECTION (FROM INFO SITES TO E-COM TO CUSTOM SOFTWARE) */}
-      <section className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* INFINITE MARQUEE TECH TICKER */}
+      <section className="py-8 border-y border-white/[0.07] bg-white/[0.01] overflow-hidden">
+        <InfiniteMarquee speed={35} pauseOnHover className="flex items-center gap-8">
+          {marqueeTech.map((tech, index) => (
+            <div 
+              key={index}
+              className="flex items-center gap-3 px-5 py-2 rounded-full bg-white/[0.02] border border-white/[0.06] shrink-0 mx-4"
+            >
+              <div className="w-2 h-2 rounded-full bg-[#FD6703]" />
+              <span className="text-sm font-semibold text-white">{tech.name}</span>
+              <span className="text-[10px] font-mono text-gray-400 uppercase">{tech.cat}</span>
+            </div>
+          ))}
+        </InfiniteMarquee>
+      </section>
+
+      {/* 21ST.DEV SIGNATURE BENTO GRID */}
+      <section className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#262930] text-[#FD6703] border border-[#FD6703]/30 text-xs font-bold uppercase tracking-wider">
-            <Layers className="w-3.5 h-3.5" />
-            <span>Digital Engineering & Web Development</span>
+        <FadeInSection direction="up" delay={0}>
+          <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
+            <span className="text-[#FD6703] text-xs font-bold uppercase tracking-wider">Engineered For Performance</span>
+            <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
+              Comprehensive Digital Capabilities
+            </h2>
+            <p className="text-sm text-[#9da4b2]">
+              Discover how our flagship SaaS platform and custom development services scale your digital operations.
+            </p>
           </div>
+        </FadeInSection>
 
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-            Tailored Development For Every Growth Stage
-          </h2>
-
-          <p className="text-base text-[#9da4b2] leading-relaxed">
-            Beyond our flagship SaaS product, we deliver end-to-end digital solutions: from fast informational corporate websites that convert visitors to enterprise e-commerce platforms and custom software architectures.
-          </p>
-        </div>
-
-        {/* Services Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Bento Grid Layout */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           
-          {/* Card 1: Custom Software Development */}
-          <div className="bg-[#202328] rounded-2xl border border-[#32363f] p-8 hover:border-[#FD6703]/50 transition-all duration-300 hover:-translate-y-2 shadow-xl flex flex-col justify-between group">
-            <div className="space-y-4">
-              <div className="w-14 h-14 rounded-2xl bg-[#FD6703]/15 text-[#FD6703] flex items-center justify-center group-hover:scale-110 transition-transform">
-                <Cpu className="w-7 h-7" />
+          {/* Bento 1 (Large 2 Cols): Flagship Maintenance System */}
+          <FadeInSection direction="up" delay={0.0} className="md:col-span-2">
+            <div className="h-full bg-[#121419]/80 border border-white/10 rounded-3xl p-8 hover:border-[#FD6703]/50 transition-all duration-300 relative overflow-hidden group shadow-xl">
+              <BorderBeam size={200} duration={12} colorFrom="#FD6703" colorTo="#ff8838" />
+              <div className="absolute top-0 right-0 w-80 h-80 bg-[#FD6703]/10 rounded-full blur-[100px] pointer-events-none group-hover:bg-[#FD6703]/15 transition-all" />
+              
+              <div className="relative z-10 space-y-4">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FD6703]/15 text-[#FD6703] text-xs font-bold uppercase border border-[#FD6703]/30">
+                  <Building2 className="w-3.5 h-3.5" />
+                  <span>Flagship Proprietary SaaS</span>
+                </div>
+                <h3 className="text-2xl sm:text-3xl font-bold text-white">
+                  Housing Society Maintenance System
+                </h3>
+                <p className="text-sm text-[#9da4b2] max-w-xl leading-relaxed">
+                  Replaces manual society collection registers with automated flat-wise dynamic QR codes, real-time UPI reconciliation, WhatsApp receipts, and treasurer audit accounting.
+                </p>
+
+                {/* Live Interactive Ticker */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-4">
+                  <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/[0.06]">
+                    <div className="text-xs text-gray-400">Auto Reconciled</div>
+                    <div className="text-2xl font-black text-white font-mono mt-1 flex items-center">
+                      ₹ <AnimatedCounter target={4.12} decimals={2} suffix=" Lakh" />
+                    </div>
+                    <div className="text-[10px] text-emerald-400 mt-1">98.2% Collection Rate</div>
+                  </div>
+                  <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/[0.06]">
+                    <div className="text-xs text-gray-400">Defaulter Alerts</div>
+                    <div className="text-2xl font-black text-[#FD6703] font-mono mt-1">Automated</div>
+                    <div className="text-[10px] text-gray-400 mt-1">WhatsApp & SMS Invoices</div>
+                  </div>
+                  <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/[0.06]">
+                    <div className="text-xs text-gray-400">Auditor Export</div>
+                    <div className="text-2xl font-black text-white font-mono mt-1">1-Click</div>
+                    <div className="text-[10px] text-gray-400 mt-1">Balance Sheet & Ledgers</div>
+                  </div>
+                </div>
+
+                <div className="pt-4 flex flex-wrap items-center gap-4">
+                  <a
+                    href={MAINTENANCE_PORTAL_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-6 py-2.5 rounded-full font-bold bg-[#FD6703] text-white hover:bg-[#e65c00] transition-all text-xs flex items-center gap-1.5 shadow-lg shadow-[#FD6703]/20"
+                  >
+                    <span>Launch Live Portal</span>
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                  <Link
+                    to="/maintenance-system"
+                    className="text-xs font-semibold text-gray-300 hover:text-white flex items-center gap-1"
+                  >
+                    <span>View Product Details & Calculator</span>
+                    <ChevronRight className="w-4 h-4" />
+                  </Link>
+                </div>
               </div>
-              <span className="text-xs font-bold uppercase tracking-wider text-[#FD6703]">Enterprise Solutions</span>
-              <h3 className="text-2xl font-bold text-white group-hover:text-[#FD6703] transition-colors">
-                Custom Software Development
-              </h3>
-              <p className="text-sm text-[#9da4b2] leading-relaxed">
-                Bespoke enterprise applications, operational control panels, workflow automations, and scalable SaaS platforms built specifically around your business logic.
-              </p>
-              <ul className="space-y-2.5 text-xs text-gray-300 pt-2 border-t border-[#2e333d]">
-                <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-[#FD6703]" /> Enterprise Dashboards & Portals</li>
-                <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-[#FD6703]" /> REST & GraphQL Cloud APIs</li>
-                <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-[#FD6703]" /> Secure Multi-Role Permissions (RBAC)</li>
-                <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-[#FD6703]" /> Scalable MongoDB & PostgreSQL Schemas</li>
-              </ul>
             </div>
+          </FadeInSection>
 
-            <div className="pt-6">
-              <Link
-                to="/services#custom-software"
-                className="text-sm font-bold text-[#FD6703] hover:underline flex items-center gap-1.5"
-              >
-                <span>Explore Custom Software</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-          </div>
-
-          {/* Card 2: Informational & Corporate Websites */}
-          <div className="bg-[#202328] rounded-2xl border border-[#32363f] p-8 hover:border-[#FD6703]/50 transition-all duration-300 hover:-translate-y-2 shadow-xl flex flex-col justify-between group">
-            <div className="space-y-4">
-              <div className="w-14 h-14 rounded-2xl bg-sky-500/15 text-sky-400 flex items-center justify-center group-hover:scale-110 transition-transform">
-                <Globe className="w-7 h-7" />
+          {/* Bento 2 (1 Col): Custom Software Engineering */}
+          <FadeInSection direction="up" delay={0.1}>
+            <div className="h-full bg-[#121419]/80 border border-white/10 rounded-3xl p-8 hover:border-[#FD6703]/50 transition-all duration-300 flex flex-col justify-between group shadow-xl">
+              <div className="space-y-4">
+                <div className="w-12 h-12 rounded-2xl bg-purple-500/10 text-purple-400 flex items-center justify-center border border-purple-500/20">
+                  <Cpu className="w-6 h-6" />
+                </div>
+                <span className="text-xs font-bold uppercase tracking-wider text-purple-400">Bespoke Engineering</span>
+                <h3 className="text-2xl font-bold text-white">Custom Software</h3>
+                <p className="text-xs sm:text-sm text-[#9da4b2] leading-relaxed">
+                  Enterprise control panels, internal tools, and specialized SaaS architectures built with scalable databases and microservices.
+                </p>
               </div>
-              <span className="text-xs font-bold uppercase tracking-wider text-sky-400">Brand Presence</span>
-              <h3 className="text-2xl font-bold text-white group-hover:text-sky-400 transition-colors">
-                Informational & Corporate Websites
-              </h3>
-              <p className="text-sm text-[#9da4b2] leading-relaxed">
-                High-performance corporate websites, portfolios, and agency landing pages designed to reflect your authority, captivate visitors, and convert traffic into qualified inquiries.
-              </p>
-              <ul className="space-y-2.5 text-xs text-gray-300 pt-2 border-t border-[#2e333d]">
-                <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-sky-400" /> Ultra-Fast Vite & React Architectures</li>
-                <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-sky-400" /> Fully Responsive Mobile-First Design</li>
-                <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-sky-400" /> Technical SEO & Structured Data</li>
-                <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-sky-400" /> Inbound Lead Generation Forms</li>
-              </ul>
-            </div>
 
-            <div className="pt-6">
-              <Link
-                to="/services#web-development"
-                className="text-sm font-bold text-sky-400 hover:underline flex items-center gap-1.5"
-              >
-                <span>Explore Informational Sites</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-          </div>
-
-          {/* Card 3: E-Commerce Stores & Online Shops */}
-          <div className="bg-[#202328] rounded-2xl border border-[#32363f] p-8 hover:border-[#FD6703]/50 transition-all duration-300 hover:-translate-y-2 shadow-xl flex flex-col justify-between group">
-            <div className="space-y-4">
-              <div className="w-14 h-14 rounded-2xl bg-emerald-500/15 text-emerald-400 flex items-center justify-center group-hover:scale-110 transition-transform">
-                <ShoppingCart className="w-7 h-7" />
+              <div className="pt-6">
+                <Link
+                  to="/services#custom-software"
+                  className="text-xs font-bold text-purple-400 hover:underline flex items-center gap-1"
+                >
+                  <span>Explore Custom Software</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
               </div>
-              <span className="text-xs font-bold uppercase tracking-wider text-emerald-400">Online Retail</span>
-              <h3 className="text-2xl font-bold text-white group-hover:text-emerald-400 transition-colors">
-                E-Commerce Stores & Marketplaces
-              </h3>
-              <p className="text-sm text-[#9da4b2] leading-relaxed">
-                Turn visitors into repeat buyers. We build high-converting storefronts with frictionless shopping carts, multi-channel payment gateways, and intuitive inventory backends.
-              </p>
-              <ul className="space-y-2.5 text-xs text-gray-300 pt-2 border-t border-[#2e333d]">
-                <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-400" /> UPI, Credit Cards, NetBanking, COD</li>
-                <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-400" /> Dynamic Product Catalogs & Filters</li>
-                <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-400" /> Automated Cart Abandonment Recovery</li>
-                <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-400" /> Order Tracking & WhatsApp Status</li>
-              </ul>
             </div>
+          </FadeInSection>
 
-            <div className="pt-6">
-              <Link
-                to="/services#ecommerce-stores"
-                className="text-sm font-bold text-emerald-400 hover:underline flex items-center gap-1.5"
-              >
-                <span>Explore E-Commerce Solutions</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
+          {/* Bento 3 (1 Col): Informational Websites */}
+          <FadeInSection direction="up" delay={0.15}>
+            <div className="h-full bg-[#121419]/80 border border-white/10 rounded-3xl p-8 hover:border-sky-500/50 transition-all duration-300 flex flex-col justify-between group shadow-xl">
+              <div className="space-y-4">
+                <div className="w-12 h-12 rounded-2xl bg-sky-500/10 text-sky-400 flex items-center justify-center border border-sky-500/20">
+                  <Globe className="w-6 h-6" />
+                </div>
+                <span className="text-xs font-bold uppercase tracking-wider text-sky-400">Brand Authority</span>
+                <h3 className="text-2xl font-bold text-white">Informational Sites</h3>
+                <p className="text-xs sm:text-sm text-[#9da4b2] leading-relaxed">
+                  Ultra-fast Vite/React corporate websites designed to establish market leadership, rank on Google, and capture qualified inbound inquiries.
+                </p>
+              </div>
+
+              <div className="pt-6">
+                <Link
+                  to="/services#web-development"
+                  className="text-xs font-bold text-sky-400 hover:underline flex items-center gap-1"
+                >
+                  <span>Explore Corporate Sites</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
             </div>
-          </div>
+          </FadeInSection>
+
+          {/* Bento 4 (Large 2 Cols): E-Commerce Stores */}
+          <FadeInSection direction="up" delay={0.2} className="md:col-span-2">
+            <div className="h-full bg-[#121419]/80 border border-white/10 rounded-3xl p-8 hover:border-emerald-500/50 transition-all duration-300 relative overflow-hidden group shadow-xl">
+              <div className="absolute top-0 right-0 w-80 h-80 bg-emerald-500/10 rounded-full blur-[100px] pointer-events-none" />
+
+              <div className="relative z-10 space-y-4">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-400 text-xs font-bold uppercase border border-emerald-500/30">
+                  <ShoppingCart className="w-3.5 h-3.5" />
+                  <span>High-Converting Digital Retail</span>
+                </div>
+                <h3 className="text-2xl sm:text-3xl font-bold text-white">
+                  E-Commerce Stores & Online Marketplaces
+                </h3>
+                <p className="text-sm text-[#9da4b2] max-w-xl leading-relaxed">
+                  From direct-to-consumer storefronts to multi-thousand SKU catalogs. Includes seamless UPI & Card checkout, real-time inventory tracking, and WhatsApp order fulfillment.
+                </p>
+
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+                  <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06] text-xs">
+                    <div className="font-bold text-white">UPI & Cards</div>
+                    <div className="text-gray-400 text-[11px] mt-0.5">Instant Checkout</div>
+                  </div>
+                  <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06] text-xs">
+                    <div className="font-bold text-white">Live Inventory</div>
+                    <div className="text-gray-400 text-[11px] mt-0.5">Automated Sync</div>
+                  </div>
+                  <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06] text-xs">
+                    <div className="font-bold text-white">Fast Filters</div>
+                    <div className="text-gray-400 text-[11px] mt-0.5">Sub-second Facets</div>
+                  </div>
+                  <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06] text-xs">
+                    <div className="font-bold text-white">Abandoned Cart</div>
+                    <div className="text-gray-400 text-[11px] mt-0.5">WhatsApp Nudge</div>
+                  </div>
+                </div>
+
+                <div className="pt-2">
+                  <Link
+                    to="/services#ecommerce-stores"
+                    className="text-xs font-bold text-emerald-400 hover:underline flex items-center gap-1"
+                  >
+                    <span>Build an E-Commerce Storefront</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </FadeInSection>
 
         </div>
 
       </section>
 
-      {/* INTERACTIVE ESTIMATOR & SCOPE BUILDER */}
-      <section className="py-20 bg-[#16181b] border-y border-[#2d3038]">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* INTERACTIVE ESTIMATOR */}
+      <section className="py-20 border-t border-white/[0.08] bg-[#0d0e12]">
+        <FadeInSection direction="up" delay={0.1} className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           
-          <div className="text-center max-w-2xl mx-auto mb-12 space-y-3">
-            <span className="text-[#FD6703] text-xs uppercase font-bold tracking-wider">Plan Your Project</span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white">Interactive Scope & Timeline Estimator</h2>
-            <p className="text-sm text-[#9da4b2]">
-              Select what you are looking to build to view standard deliverables and estimated delivery velocity.
+          <div className="text-center max-w-2xl mx-auto mb-12 space-y-2">
+            <span className="text-[#FD6703] text-xs font-bold uppercase tracking-wider">Plan Your Timeline</span>
+            <h2 className="text-3xl sm:text-4xl font-black text-white">Interactive Scope & Velocity Estimator</h2>
+            <p className="text-xs sm:text-sm text-[#9da4b2]">
+              Select what your business requires to evaluate deliverables and build duration.
             </p>
           </div>
 
-          <div className="bg-[#202328] rounded-3xl border border-[#393e47] p-6 sm:p-10 shadow-2xl">
+          <div className="bg-[#121419] rounded-3xl border border-white/10 p-6 sm:p-10 shadow-2xl">
             
             {/* Project Type Buttons */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
               {[
                 { key: 'maintenance', label: 'Maintenance System', icon: Building2 },
-                { key: 'informational', label: 'Info / Corporate Site', icon: Globe },
+                { key: 'informational', label: 'Corporate Website', icon: Globe },
                 { key: 'ecommerce', label: 'E-Commerce Store', icon: ShoppingCart },
-                { key: 'custom', label: 'Custom Software App', icon: Cpu }
+                { key: 'custom', label: 'Custom Web App', icon: Cpu }
               ].map(tab => {
                 const IconComponent = tab.icon;
                 const isSelected = selectedProjectType === tab.key;
@@ -440,214 +622,120 @@ const Home = () => {
                   <button
                     key={tab.key}
                     onClick={() => setSelectedProjectType(tab.key)}
-                    className={`p-4 rounded-xl text-left border transition-all duration-200 flex flex-col gap-2 ${
+                    className={`p-4 rounded-2xl text-left border transition-all duration-200 flex flex-col gap-2 ${
                       isSelected
-                        ? 'bg-[#FD6703] text-black border-[#FD6703] shadow-lg font-bold'
-                        : 'bg-[#18191d] text-gray-300 border-[#2e333d] hover:border-gray-500 hover:text-white'
+                        ? 'bg-[#FD6703] text-white border-[#FD6703] shadow-lg shadow-[#FD6703]/25 font-bold'
+                        : 'bg-white/[0.02] text-gray-300 border-white/10 hover:border-white/20 hover:text-white'
                     }`}
                   >
-                    <IconComponent className={`w-5 h-5 ${isSelected ? 'text-black' : 'text-[#FD6703]'}`} />
-                    <span className="text-sm font-semibold">{tab.label}</span>
+                    <IconComponent className={`w-5 h-5 ${isSelected ? 'text-white' : 'text-[#FD6703]'}`} />
+                    <span className="text-xs font-semibold">{tab.label}</span>
                   </button>
                 );
               })}
             </div>
 
             {/* Estimator Details Card */}
-            {estimatorData[selectedProjectType] && (
-              <div className="bg-[#18191d] rounded-2xl border border-[#2e333d] p-6 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                
-                <div className="lg:col-span-8 space-y-4">
-                  <div className="flex items-center gap-3">
-                    <span className="text-xs px-3 py-1 rounded-full font-bold bg-[#FD6703]/20 text-[#FD6703] border border-[#FD6703]/30">
-                      {estimatorData[selectedProjectType].badge}
-                    </span>
-                    <span className="text-xs text-gray-400 flex items-center gap-1">
-                      <Clock className="w-3.5 h-3.5 text-[#FD6703]" />
-                      Estimated Timeline: <strong className="text-white">{estimatorData[selectedProjectType].timeline}</strong>
-                    </span>
-                  </div>
+            <AnimatePresence mode="wait">
+              {estimatorData[selectedProjectType] && (
+                <motion.div
+                  key={selectedProjectType}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.3 }}
+                  className="bg-[#0b0c0e] rounded-2xl border border-white/10 p-6 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center"
+                >
+                  
+                  <div className="lg:col-span-8 space-y-4">
+                    <div className="flex items-center gap-3">
+                      <span className="text-[11px] px-3 py-0.5 rounded-full font-bold bg-[#FD6703]/20 text-[#FD6703] border border-[#FD6703]/30">
+                        {estimatorData[selectedProjectType].badge}
+                      </span>
+                      <span className="text-xs text-gray-400 flex items-center gap-1 font-mono">
+                        <Clock className="w-3.5 h-3.5 text-[#FD6703]" />
+                        Timeline: <strong className="text-white">{estimatorData[selectedProjectType].timeline}</strong>
+                      </span>
+                    </div>
 
-                  <h3 className="text-2xl font-bold text-white">
-                    {estimatorData[selectedProjectType].title}
-                  </h3>
+                    <h3 className="text-2xl font-bold text-white">
+                      {estimatorData[selectedProjectType].title}
+                    </h3>
 
-                  <p className="text-sm text-[#9da4b2] leading-relaxed">
-                    {estimatorData[selectedProjectType].desc}
-                  </p>
+                    <p className="text-xs sm:text-sm text-[#9da4b2] leading-relaxed">
+                      {estimatorData[selectedProjectType].desc}
+                    </p>
 
-                  <div className="space-y-2 pt-2">
-                    <span className="text-xs text-gray-400 font-semibold uppercase tracking-wider block">Key Included Deliverables:</span>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                      {estimatorData[selectedProjectType].features.map((feat, i) => (
-                        <div key={i} className="flex items-center gap-2 text-xs text-gray-200">
-                          <CheckCircle2 className="w-4 h-4 text-[#FD6703] shrink-0" />
-                          <span>{feat}</span>
-                        </div>
-                      ))}
+                    <div className="space-y-2 pt-2">
+                      <span className="text-[11px] text-gray-400 font-semibold uppercase tracking-wider block">Standard Deliverables:</span>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        {estimatorData[selectedProjectType].features.map((feat, i) => (
+                          <div key={i} className="flex items-center gap-2 text-xs text-gray-200">
+                            <CheckCircle2 className="w-4 h-4 text-[#FD6703] shrink-0" />
+                            <span>{feat}</span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                <div className="lg:col-span-4 bg-[#202328] p-6 rounded-xl border border-[#32363f] text-center space-y-4">
-                  <span className="text-xs text-gray-400 uppercase tracking-wider block">Get Exact Specifications</span>
-                  <div className="text-xl font-bold text-white">Ready to proceed?</div>
-                  <p className="text-xs text-[#9da4b2]">
-                    Receive a comprehensive proposal and architectural breakdown tailored to your budget.
-                  </p>
-                  <button
-                    onClick={() => navigate('/contact-us')}
-                    className="w-full py-3 rounded-xl font-bold bg-[#FD6703] text-black hover:bg-[#e65c00] transition-all flex items-center justify-center gap-2 shadow-lg shadow-[#FD6703]/20"
-                  >
-                    <span>Request Detailed Proposal</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
-                </div>
+                  <div className="lg:col-span-4 bg-[#14161c] p-6 rounded-2xl border border-white/10 text-center space-y-4">
+                    <span className="text-[11px] text-gray-400 uppercase tracking-wider block">Ready to Build?</span>
+                    <div className="text-lg font-bold text-white">Get a Custom Proposal</div>
+                    <p className="text-xs text-[#9da4b2]">
+                      Receive an architectural scope document and budget options within 4 hours.
+                    </p>
+                    <button
+                      onClick={() => navigate('/contact-us')}
+                      className="w-full py-3 rounded-full font-bold bg-[#FD6703] text-white hover:bg-[#e65c00] transition-all flex items-center justify-center gap-2 shadow-lg shadow-[#FD6703]/25 text-xs"
+                    >
+                      <span>Request Proposal</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
 
-              </div>
-            )}
+                </motion.div>
+              )}
+            </AnimatePresence>
 
           </div>
 
-        </div>
+        </FadeInSection>
       </section>
 
-      {/* WHY CHOOSE CODEBRACES */}
-      <section className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          
-          <div className="space-y-6">
-            <span className="text-[#FD6703] text-xs uppercase font-bold tracking-wider">Engineering Rigor</span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white">
-              Why Forward-Thinking Businesses & Societies Choose CodeBraces
+      {/* BOTTOM CTA BANNER */}
+      <section className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <FadeInSection direction="up" delay={0.1}>
+          <div className="bg-gradient-to-br from-[#1b1e27] via-[#121419] to-[#0d0e12] rounded-3xl border border-white/10 p-8 sm:p-14 text-center space-y-6 shadow-2xl relative overflow-hidden">
+            <Spotlight className="-top-10 left-0 md:left-20" fill="#FD6703" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#FD6703]/15 rounded-full blur-[140px] pointer-events-none" />
+            
+            <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight relative z-10">
+              Build Something Extraordinary With <span className="text-[#FD6703]">CodeBraces</span>
             </h2>
-            <p className="text-sm text-[#9da4b2] leading-relaxed">
-              We operate differently from typical agencies. Because we actively build, deploy, and maintain our own proprietary SaaS platform (the Maintenance System), our custom software and web development services benefit from true production-grade resilience.
+            <p className="text-sm sm:text-base font-medium max-w-2xl mx-auto text-[#9da4b2] relative z-10">
+              Whether you are modernizing your residential society or scaling high-growth custom software, our engineering team is ready.
             </p>
 
-            <div className="space-y-4">
-              <div className="p-4 rounded-xl bg-[#202328] border border-[#2e333d] flex gap-4">
-                <div className="w-10 h-10 rounded-lg bg-[#FD6703]/15 text-[#FD6703] flex items-center justify-center shrink-0">
-                  <Zap className="w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="text-base font-bold text-white">Lightning Velocity & Clean Code</h4>
-                  <p className="text-xs text-[#9da4b2] mt-1">We utilize modern stacks (Vite, React, Tailwind, Node.js) ensuring sub-second load times and easily maintainable architectures.</p>
-                </div>
-              </div>
-
-              <div className="p-4 rounded-xl bg-[#202328] border border-[#2e333d] flex gap-4">
-                <div className="w-10 h-10 rounded-lg bg-[#FD6703]/15 text-[#FD6703] flex items-center justify-center shrink-0">
-                  <ShieldCheck className="w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="text-base font-bold text-white">Security & Audit Compliance</h4>
-                  <p className="text-xs text-[#9da4b2] mt-1">From cryptographic hash checks on society transactions to PCI-compliant e-commerce checkouts, your data remains impenetrable.</p>
-                </div>
-              </div>
-
-              <div className="p-4 rounded-xl bg-[#202328] border border-[#2e333d] flex gap-4">
-                <div className="w-10 h-10 rounded-lg bg-[#FD6703]/15 text-[#FD6703] flex items-center justify-center shrink-0">
-                  <Users className="w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="text-base font-bold text-white">Direct Engineer Collaboration</h4>
-                  <p className="text-xs text-[#9da4b2] mt-1">No middlemen or non-technical account managers. You work directly with the software engineers writing your code.</p>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          {/* Right: Testimonials / Trust Elements */}
-          <div className="space-y-6">
-            <div className="bg-[#202328] p-6 rounded-2xl border border-[#393e47] space-y-3">
-              <div className="flex text-[#FD6703] gap-1">
-                {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-current" />)}
-              </div>
-              <p className="text-sm text-gray-300 italic leading-relaxed">
-                "CodeBraces transformed our 180-flat society's maintenance collection. Previously, committee members spent 3 weekends every month chasing cheques and reconciling UPI screenshots. Now, residents scan their flat QR, payments reflect immediately, and our collection rate touched 99%."
-              </p>
-              <div className="pt-2 border-t border-[#2e333d] flex items-center justify-between text-xs">
-                <span className="font-bold text-white">Praveen Nair</span>
-                <span className="text-gray-400">Treasurer, Royal Palm Residency</span>
-              </div>
-            </div>
-
-            <div className="bg-[#202328] p-6 rounded-2xl border border-[#393e47] space-y-3">
-              <div className="flex text-[#FD6703] gap-1">
-                {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-current" />)}
-              </div>
-              <p className="text-sm text-gray-300 italic leading-relaxed">
-                "We engaged CodeBraces to construct our multi-category e-commerce storefront. The checkout is buttery smooth, mobile conversion spiked by 34%, and their custom inventory tracking dashboard saves our fulfillment team hours every morning."
-              </p>
-              <div className="pt-2 border-t border-[#2e333d] flex items-center justify-between text-xs">
-                <span className="font-bold text-white">Ananya K.</span>
-                <span className="text-gray-400">Founder, Aura Living Goods</span>
-              </div>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2 relative z-10">
+              <button
+                onClick={() => navigate('/contact-us')}
+                className="px-8 py-3.5 rounded-full font-bold text-white transition-all shadow-xl shadow-[#FD6703]/25 text-sm animate-shimmer bg-[linear-gradient(110deg,#FD6703,45%,#ffaa6b,55%,#FD6703)] bg-[length:200%_100%] hover:scale-105"
+              >
+                Start Your Project Consultation
+              </button>
+              <a
+                href={MAINTENANCE_PORTAL_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-8 py-3.5 rounded-full font-semibold bg-white/[0.05] hover:bg-white/[0.09] text-white border border-white/10 transition-all flex items-center justify-center gap-2 text-sm"
+              >
+                <span>Launch Maintenance System</span>
+                <ExternalLink className="w-3.5 h-3.5 text-[#FD6703]" />
+              </a>
             </div>
           </div>
-
-        </div>
-      </section>
-
-      {/* GLOBAL FAQ */}
-      <section className="py-20 bg-[#16181b] border-t border-[#2d3038]">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <span className="text-[#FD6703] text-xs uppercase font-bold tracking-wider">Got Questions?</span>
-            <h2 className="text-3xl font-extrabold text-white mt-1">Frequently Asked Questions</h2>
-          </div>
-
-          <div className="space-y-4">
-            <div className="p-5 rounded-xl bg-[#202328] border border-[#2e333d]">
-              <h4 className="text-base font-semibold text-white">Can CodeBraces build both custom software and informational websites?</h4>
-              <p className="text-sm text-gray-400 mt-2 leading-relaxed">
-                Yes! We cater to projects across all complexities — from sleek 5-page informational business websites to custom multi-tenant SaaS systems, e-commerce storefronts, and our flagship Society Maintenance System.
-              </p>
-            </div>
-
-            <div className="p-5 rounded-xl bg-[#202328] border border-[#2e333d]">
-              <h4 className="text-base font-semibold text-white">How do we get started with the Maintenance System for our building?</h4>
-              <p className="text-sm text-gray-400 mt-2 leading-relaxed">
-                You can test the live demo right now on our Portal Login page or schedule a 15-minute onboarding session with our team. We handle all initial flat data imports from your existing spreadsheets so your committee is live within 48 hours.
-              </p>
-            </div>
-
-            <div className="p-5 rounded-xl bg-[#202328] border border-[#2e333d]">
-              <h4 className="text-base font-semibold text-white">Do you offer post-launch maintenance retainers for websites & apps?</h4>
-              <p className="text-sm text-gray-400 mt-2 leading-relaxed">
-                Absolutely. We provide ongoing support plans including server monitoring, automated daily backups, security patching, and monthly design/feature additions.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* BOTTOM CALL TO ACTION */}
-      <section className="py-20 bg-gradient-to-r from-[#FD6703] via-[#e65c00] to-[#ff7e29] text-black">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
-          <h2 className="text-3xl sm:text-5xl font-black tracking-tight">
-            Ready to Build With CodeBraces?
-          </h2>
-          <p className="text-base sm:text-lg font-semibold max-w-2xl mx-auto text-black/85">
-            Whether you want to automate your society's maintenance billing or construct high-impact web and e-commerce applications, we're ready to engineer it.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
-            <Link
-              to="/contact-us"
-              className="w-full sm:w-auto px-8 py-4 rounded-xl font-bold bg-[#191b1f] text-white hover:bg-black transition-all shadow-xl"
-            >
-              Get a Free Project Estimate
-            </Link>
-            <Link
-              to="/maintenance-system"
-              className="w-full sm:w-auto px-8 py-4 rounded-xl font-bold bg-white text-black hover:bg-gray-100 transition-all shadow-lg"
-            >
-              Learn More About Maintenance System
-            </Link>
-          </div>
-        </div>
+        </FadeInSection>
       </section>
 
     </div>

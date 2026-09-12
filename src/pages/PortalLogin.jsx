@@ -5,6 +5,8 @@ import {
   ExternalLink,
   ShieldCheck
 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import Spotlight from '../components/ui/Spotlight';
 
 const PortalLogin = () => {
   const MAINTENANCE_PORTAL_URL = 'https://maintenance-pro.netlify.app/login';
@@ -26,10 +28,10 @@ const PortalLogin = () => {
   }, []);
 
   return (
-    <div className="bg-[#191b1f] text-gray-200 min-h-[calc(100vh-80px)] flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+    <div className="bg-[#0b0c0e] text-gray-200 min-h-[calc(100vh-80px)] flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
       
       {/* Background glow with brand orange */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[300px] bg-[#FD6703]/10 rounded-full blur-[140px] pointer-events-none" />
+      <Spotlight className="-top-40 left-0 md:left-60 md:-top-20" fill="#FD6703" />
 
       <div className="max-w-md w-full mx-auto space-y-6 relative z-10">
         
@@ -45,16 +47,24 @@ const PortalLogin = () => {
         </div>
 
         {/* Redirecting Card */}
-        <div className="bg-[#202328] rounded-3xl border border-[#393e47] p-8 shadow-2xl space-y-6 text-center">
+        <motion.div 
+          initial={{ scale: 0.9, opacity: 0 }} 
+          animate={{ scale: 1, opacity: 1 }}
+          className="bg-[#121419] rounded-3xl border border-white/10 p-8 shadow-2xl space-y-6 text-center"
+        >
           
           {/* Logo */}
-          <div className="w-16 h-16 rounded-2xl bg-[#22252a] p-2 border border-[#393e47] mx-auto shadow-lg shadow-[#FD6703]/20 flex items-center justify-center">
+          <motion.div 
+            animate={{ y: [-3, 3] }} 
+            transition={{ repeat: Infinity, repeatType: 'reverse', duration: 2 }}
+            className="w-16 h-16 rounded-2xl bg-[#181a22] p-2 border border-white/10 mx-auto shadow-lg shadow-[#FD6703]/20 flex items-center justify-center"
+          >
             <img 
               src="/logo.png" 
               alt="CodeBraces Logo" 
               className="w-full h-full object-contain"
             />
-          </div>
+          </motion.div>
 
           <div className="space-y-2">
             <h2 className="text-2xl font-extrabold text-white">Maintenance System Portal</h2>
@@ -67,8 +77,20 @@ const PortalLogin = () => {
           {/* Animated Spinner & Status */}
           <div className="py-4 space-y-3">
             <div className="w-12 h-12 border-4 border-[#FD6703] border-t-transparent rounded-full animate-spin mx-auto" />
-            <div className="text-xs text-gray-400">
-              Launching portal in <span className="font-bold text-white font-mono text-sm">{countdown}s</span>...
+            <div className="text-xs text-gray-400 flex items-center justify-center gap-1">
+              Launching portal in 
+              <AnimatePresence mode="popLayout">
+                <motion.span 
+                  key={countdown}
+                  initial={{ y: 10, opacity: 0 }} 
+                  animate={{ y: 0, opacity: 1 }} 
+                  exit={{ y: -10, opacity: 0 }}
+                  className="font-bold text-white font-mono text-sm inline-block"
+                >
+                  {countdown}
+                </motion.span>
+              </AnimatePresence>
+              s...
             </div>
           </div>
 
@@ -86,7 +108,7 @@ const PortalLogin = () => {
             <span>Secure Society Authentication Gateway</span>
           </div>
 
-        </div>
+        </motion.div>
 
       </div>
     </div>

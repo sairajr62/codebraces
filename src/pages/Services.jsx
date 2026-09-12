@@ -11,6 +11,12 @@ import {
   RefreshCw, 
   Boxes
 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import Spotlight from '../components/ui/Spotlight';
+import TextGenerateEffect from '../components/ui/TextGenerateEffect';
+import BorderBeam from '../components/ui/BorderBeam';
+import CardSpotlight from '../components/ui/CardSpotlight';
+import FadeInSection from '../components/ui/FadeInSection';
 
 const Services = () => {
   const navigate = useNavigate();
@@ -63,20 +69,24 @@ const Services = () => {
   ];
 
   return (
-    <div className="bg-[#191b1f] text-gray-200 min-h-screen">
+    <div className="bg-[#0b0c0e] text-gray-200 min-h-screen">
       
       {/* Header Banner */}
-      <section className="relative pt-12 pb-20 border-b border-[#2d3038] overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[250px] bg-[#FD6703]/10 rounded-full blur-[130px] pointer-events-none" />
+      <section className="relative pt-12 pb-20 border-b border-white/10 overflow-hidden">
+        <Spotlight className="-top-40 left-0 md:left-60 md:-top-20" fill="#FD6703" />
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 space-y-5">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#262930] text-[#FD6703] border border-[#FD6703]/30 text-xs font-bold uppercase tracking-wider">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#262930] text-[#FD6703] border border-[#FD6703]/30 text-xs font-bold uppercase tracking-wider"
+          >
             <Layers className="w-3.5 h-3.5" />
             <span>Full-Spectrum Digital Capabilities</span>
-          </div>
+          </motion.div>
 
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight">
-            Our Engineering & <span className="text-[#FD6703]">Development Services</span>
+            <TextGenerateEffect words="Our Engineering & Development Services" />
           </h1>
 
           <p className="text-base sm:text-lg text-[#9da4b2] max-w-3xl mx-auto leading-relaxed">
@@ -86,25 +96,25 @@ const Services = () => {
           <div className="flex flex-wrap justify-center gap-4 pt-3">
             <a 
               href="#custom-software" 
-              className="text-xs font-semibold px-4 py-2 rounded-full bg-[#242830] hover:bg-[#30353f] text-gray-300 hover:text-white border border-[#393e47] transition-all"
+              className="text-xs font-semibold px-4 py-2 rounded-full bg-[#242830] hover:bg-[#30353f] text-gray-300 hover:text-white border border-white/10 transition-all"
             >
               Custom Software
             </a>
             <a 
               href="#web-development" 
-              className="text-xs font-semibold px-4 py-2 rounded-full bg-[#242830] hover:bg-[#30353f] text-gray-300 hover:text-white border border-[#393e47] transition-all"
+              className="text-xs font-semibold px-4 py-2 rounded-full bg-[#242830] hover:bg-[#30353f] text-gray-300 hover:text-white border border-white/10 transition-all"
             >
               Informational Websites
             </a>
             <a 
               href="#ecommerce-stores" 
-              className="text-xs font-semibold px-4 py-2 rounded-full bg-[#242830] hover:bg-[#30353f] text-gray-300 hover:text-white border border-[#393e47] transition-all"
+              className="text-xs font-semibold px-4 py-2 rounded-full bg-[#242830] hover:bg-[#30353f] text-gray-300 hover:text-white border border-white/10 transition-all"
             >
               E-Commerce Stores
             </a>
             <a 
               href="#maintenance-retainers" 
-              className="text-xs font-semibold px-4 py-2 rounded-full bg-[#242830] hover:bg-[#30353f] text-gray-300 hover:text-white border border-[#393e47] transition-all"
+              className="text-xs font-semibold px-4 py-2 rounded-full bg-[#242830] hover:bg-[#30353f] text-gray-300 hover:text-white border border-white/10 transition-all"
             >
               Maintenance Retainers
             </a>
@@ -113,11 +123,12 @@ const Services = () => {
       </section>
 
       {/* Flagship Product Banner Callout */}
-      <section className="py-8 bg-[#15171a] border-b border-[#2d3038]">
+      <section className="py-8 bg-[#0e1014] border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-gradient-to-r from-[#282c35] to-[#1f2228] p-6 rounded-2xl border border-[#FD6703]/30 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-[#FD6703] text-black flex items-center justify-center shrink-0 shadow-md shadow-[#FD6703]/20">
+          <div className="relative bg-gradient-to-r from-[#282c35] to-[#1f2228] p-6 rounded-2xl border border-[#FD6703]/30 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl overflow-hidden">
+            <BorderBeam size={200} duration={12} colorFrom="#FD6703" colorTo="#ff7e29" />
+            <div className="flex items-center gap-4 relative z-10">
+              <div className="w-12 h-12 rounded-xl bg-[#FD6703] text-white flex items-center justify-center shrink-0 shadow-md shadow-[#FD6703]/25">
                 <Building2 className="w-6 h-6" />
               </div>
               <div>
@@ -130,7 +141,7 @@ const Services = () => {
             </div>
             <Link
               to="/maintenance-system"
-              className="px-6 py-2.5 rounded-xl font-bold bg-[#FD6703] text-black hover:bg-[#e65c00] transition-all flex items-center gap-2 text-sm shrink-0 shadow-md shadow-[#FD6703]/20"
+              className="px-6 py-2.5 rounded-xl font-bold bg-[#FD6703] text-white hover:bg-[#e65c00] transition-all flex items-center gap-2 text-sm shrink-0 shadow-md shadow-[#FD6703]/20 relative z-10"
             >
               <span>Explore Product</span>
               <ArrowRight className="w-4 h-4" />
@@ -140,11 +151,11 @@ const Services = () => {
       </section>
 
       {/* DETAILED SERVICE 1: CUSTOM SOFTWARE DEVELOPMENT */}
-      <section id="custom-software" className="py-20 border-b border-[#2d3038]">
+      <section id="custom-software" className="py-20 border-b border-white/10 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
-            <div className="lg:col-span-7 space-y-6">
+            <FadeInSection direction="left" className="lg:col-span-7 space-y-6">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FD6703]/15 text-[#FD6703] border border-[#FD6703]/30 text-xs font-bold uppercase">
                 <Cpu className="w-3.5 h-3.5" />
                 <span>Bespoke Engineering</span>
@@ -159,113 +170,113 @@ const Services = () => {
               </p>
 
               <div className="space-y-4">
-                <div className="p-4 rounded-xl bg-[#202328] border border-[#2e333d]">
-                  <h4 className="text-base font-bold text-white flex items-center gap-2">
+                <CardSpotlight className="p-4 rounded-xl bg-[#121419] border border-white/10" spotlightColor="rgba(253, 103, 3, 0.15)">
+                  <h4 className="text-base font-bold text-white flex items-center gap-2 relative z-10">
                     <CheckCircle2 className="w-4 h-4 text-[#FD6703]" />
                     Enterprise Dashboards & Admin Portals
                   </h4>
-                  <p className="text-xs text-gray-400 mt-1 leading-relaxed">
+                  <p className="text-xs text-gray-400 mt-1 leading-relaxed relative z-10">
                     Custom operational cockpits, multi-tenant SaaS dashboards, inventory trackers, and staff scheduling panels with deep analytics.
                   </p>
-                </div>
+                </CardSpotlight>
 
-                <div className="p-4 rounded-xl bg-[#202328] border border-[#2e333d]">
-                  <h4 className="text-base font-bold text-white flex items-center gap-2">
+                <CardSpotlight className="p-4 rounded-xl bg-[#121419] border border-white/10" spotlightColor="rgba(253, 103, 3, 0.15)">
+                  <h4 className="text-base font-bold text-white flex items-center gap-2 relative z-10">
                     <CheckCircle2 className="w-4 h-4 text-[#FD6703]" />
                     Cloud APIs & Backend Integrations
                   </h4>
-                  <p className="text-xs text-gray-400 mt-1 leading-relaxed">
+                  <p className="text-xs text-gray-400 mt-1 leading-relaxed relative z-10">
                     RESTful & GraphQL microservices, third-party CRM connectors, payment processing pipelines, and automated database sync.
                   </p>
-                </div>
+                </CardSpotlight>
 
-                <div className="p-4 rounded-xl bg-[#202328] border border-[#2e333d]">
-                  <h4 className="text-base font-bold text-white flex items-center gap-2">
+                <CardSpotlight className="p-4 rounded-xl bg-[#121419] border border-white/10" spotlightColor="rgba(253, 103, 3, 0.15)">
+                  <h4 className="text-base font-bold text-white flex items-center gap-2 relative z-10">
                     <CheckCircle2 className="w-4 h-4 text-[#FD6703]" />
                     Role-Based Access Control (RBAC) & Security
                   </h4>
-                  <p className="text-xs text-gray-400 mt-1 leading-relaxed">
+                  <p className="text-xs text-gray-400 mt-1 leading-relaxed relative z-10">
                     Fine-grained permission hierarchies for Admins, Managers, Staff, and Clients with JWT authentication and audit trails.
                   </p>
-                </div>
+                </CardSpotlight>
               </div>
 
               <div className="pt-2">
                 <button
                   onClick={() => navigate('/contact-us')}
-                  className="px-6 py-3 rounded-xl font-bold bg-[#FD6703] text-black hover:bg-[#e65c00] transition-all flex items-center gap-2 text-sm shadow-lg shadow-[#FD6703]/20"
+                  className="px-6 py-3 rounded-xl font-bold bg-[#FD6703] text-white hover:bg-[#e65c00] transition-all flex items-center gap-2 text-sm shadow-lg shadow-[#FD6703]/20"
                 >
                   <span>Request Custom Software Scope</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
-            </div>
+            </FadeInSection>
 
-            <div className="lg:col-span-5 bg-[#202328] rounded-3xl border border-[#393e47] p-6 sm:p-8 space-y-6 shadow-2xl">
+            <FadeInSection direction="right" className="lg:col-span-5 bg-[#121419] rounded-3xl border border-white/10 p-6 sm:p-8 space-y-6 shadow-2xl">
               <h3 className="text-lg font-bold text-white pb-3 border-b border-[#30353f] flex items-center justify-between">
                 <span>Architecture Highlights</span>
                 <span className="text-xs text-[#FD6703] font-mono">Production-Ready</span>
               </h3>
 
               <div className="space-y-4 text-xs">
-                <div className="bg-[#18191d] p-3.5 rounded-xl border border-[#2e333d] space-y-1">
+                <div className="bg-[#181a22] p-3.5 rounded-xl border border-white/10 space-y-1">
                   <span className="text-gray-400">Database Options:</span>
                   <div className="text-white font-semibold">MongoDB, PostgreSQL, MySQL, Redis Cache</div>
                 </div>
 
-                <div className="bg-[#18191d] p-3.5 rounded-xl border border-[#2e333d] space-y-1">
+                <div className="bg-[#181a22] p-3.5 rounded-xl border border-white/10 space-y-1">
                   <span className="text-gray-400">Backend Frameworks:</span>
                   <div className="text-white font-semibold">Node.js, Express, Fastify, Python FastAPI</div>
                 </div>
 
-                <div className="bg-[#18191d] p-3.5 rounded-xl border border-[#2e333d] space-y-1">
+                <div className="bg-[#181a22] p-3.5 rounded-xl border border-white/10 space-y-1">
                   <span className="text-gray-400">Security Standard:</span>
                   <div className="text-white font-semibold">HTTPS/TLS 1.3, Argon2/Bcrypt Hashing, OWASP Best Practices</div>
                 </div>
 
-                <div className="bg-[#18191d] p-3.5 rounded-xl border border-[#2e333d] space-y-1">
+                <div className="bg-[#181a22] p-3.5 rounded-xl border border-white/10 space-y-1">
                   <span className="text-gray-400">Deployment Stacks:</span>
                   <div className="text-white font-semibold">Docker Containers, AWS EC2/S3, DigitalOcean, Vercel</div>
                 </div>
               </div>
-            </div>
+            </FadeInSection>
 
           </div>
         </div>
       </section>
 
       {/* DETAILED SERVICE 2: INFORMATIONAL & CORPORATE WEBSITES */}
-      <section id="web-development" className="py-20 bg-[#16181b] border-b border-[#2d3038]">
+      <section id="web-development" className="py-20 bg-[#16181b] border-b border-white/10 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
-            <div className="lg:col-span-5 order-2 lg:order-1 bg-[#202328] rounded-3xl border border-[#393e47] p-6 sm:p-8 space-y-6 shadow-2xl">
+            <FadeInSection direction="left" className="lg:col-span-5 order-2 lg:order-1 bg-[#121419] rounded-3xl border border-white/10 p-6 sm:p-8 space-y-6 shadow-2xl">
               <h3 className="text-lg font-bold text-white pb-3 border-b border-[#30353f] flex items-center justify-between">
                 <span>Informational Website Metrics</span>
                 <span className="text-xs text-sky-400 font-mono">Performance Tier</span>
               </h3>
 
               <div className="space-y-4">
-                <div className="p-4 rounded-xl bg-[#18191d] border border-[#2e333d] flex items-center justify-between">
+                <div className="p-4 rounded-xl bg-[#181a22] border border-white/10 flex items-center justify-between">
                   <span className="text-xs text-gray-400">Google Lighthouse Score</span>
                   <span className="text-xl font-bold text-emerald-400">95+ / 100</span>
                 </div>
-                <div className="p-4 rounded-xl bg-[#18191d] border border-[#2e333d] flex items-center justify-between">
+                <div className="p-4 rounded-xl bg-[#181a22] border border-white/10 flex items-center justify-between">
                   <span className="text-xs text-gray-400">Average Page Load Time</span>
                   <span className="text-xl font-bold text-white">&lt; 0.8 Seconds</span>
                 </div>
-                <div className="p-4 rounded-xl bg-[#18191d] border border-[#2e333d] flex items-center justify-between">
+                <div className="p-4 rounded-xl bg-[#181a22] border border-white/10 flex items-center justify-between">
                   <span className="text-xs text-gray-400">Mobile Fluidity</span>
                   <span className="text-xl font-bold text-sky-400">100% Adaptive</span>
                 </div>
-                <div className="p-4 rounded-xl bg-[#18191d] border border-[#2e333d] flex items-center justify-between">
+                <div className="p-4 rounded-xl bg-[#181a22] border border-white/10 flex items-center justify-between">
                   <span className="text-xs text-gray-400">On-Page SEO Ready</span>
                   <span className="text-xl font-bold text-[#FD6703]">Included</span>
                 </div>
               </div>
-            </div>
+            </FadeInSection>
 
-            <div className="lg:col-span-7 order-1 lg:order-2 space-y-6">
+            <FadeInSection direction="right" className="lg:col-span-7 order-1 lg:order-2 space-y-6">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/15 text-sky-400 border border-sky-500/30 text-xs font-bold uppercase">
                 <Globe className="w-3.5 h-3.5" />
                 <span>Web Presence</span>
@@ -280,58 +291,58 @@ const Services = () => {
               </p>
 
               <div className="space-y-4">
-                <div className="p-4 rounded-xl bg-[#202328] border border-[#2e333d]">
-                  <h4 className="text-base font-bold text-white flex items-center gap-2">
+                <CardSpotlight className="p-4 rounded-xl bg-[#121419] border border-white/10" spotlightColor="rgba(56, 189, 248, 0.15)">
+                  <h4 className="text-base font-bold text-white flex items-center gap-2 relative z-10">
                     <CheckCircle2 className="w-4 h-4 text-sky-400" />
                     Corporate & Agency Presence
                   </h4>
-                  <p className="text-xs text-gray-400 mt-1 leading-relaxed">
+                  <p className="text-xs text-gray-400 mt-1 leading-relaxed relative z-10">
                     Clean, contemporary design language tailored to showcase services, case studies, team biographies, and leadership credentials.
                   </p>
-                </div>
+                </CardSpotlight>
 
-                <div className="p-4 rounded-xl bg-[#202328] border border-[#2e333d]">
-                  <h4 className="text-base font-bold text-white flex items-center gap-2">
+                <CardSpotlight className="p-4 rounded-xl bg-[#121419] border border-white/10" spotlightColor="rgba(56, 189, 248, 0.15)">
+                  <h4 className="text-base font-bold text-white flex items-center gap-2 relative z-10">
                     <CheckCircle2 className="w-4 h-4 text-sky-400" />
                     Lead Capture & Contact Funnels
                   </h4>
-                  <p className="text-xs text-gray-400 mt-1 leading-relaxed">
+                  <p className="text-xs text-gray-400 mt-1 leading-relaxed relative z-10">
                     Conversion-optimized consultation inquiry forms, interactive price calculators, Google Maps integration, and instant email alerts.
                   </p>
-                </div>
+                </CardSpotlight>
 
-                <div className="p-4 rounded-xl bg-[#202328] border border-[#2e333d]">
-                  <h4 className="text-base font-bold text-white flex items-center gap-2">
+                <CardSpotlight className="p-4 rounded-xl bg-[#121419] border border-white/10" spotlightColor="rgba(56, 189, 248, 0.15)">
+                  <h4 className="text-base font-bold text-white flex items-center gap-2 relative z-10">
                     <CheckCircle2 className="w-4 h-4 text-sky-400" />
                     Technical SEO & Content Hierarchy
                   </h4>
-                  <p className="text-xs text-gray-400 mt-1 leading-relaxed">
+                  <p className="text-xs text-gray-400 mt-1 leading-relaxed relative z-10">
                     Semantic HTML5, OpenGraph social cards, JSON-LD structured schema, and fast-indexing sitemaps to ensure top visibility on Google.
                   </p>
-                </div>
+                </CardSpotlight>
               </div>
 
               <div className="pt-2">
                 <button
                   onClick={() => navigate('/contact-us')}
-                  className="px-6 py-3 rounded-xl font-bold bg-sky-400 text-black hover:bg-sky-300 transition-all flex items-center gap-2 text-sm shadow-lg shadow-sky-400/20"
+                  className="px-6 py-3 rounded-xl font-bold bg-sky-400 text-white hover:bg-sky-300 transition-all flex items-center gap-2 text-sm shadow-lg shadow-sky-400/20"
                 >
                   <span>Build an Informational Website</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
-            </div>
+            </FadeInSection>
 
           </div>
         </div>
       </section>
 
       {/* DETAILED SERVICE 3: E-COMMERCE STORES */}
-      <section id="ecommerce-stores" className="py-20 border-b border-[#2d3038]">
+      <section id="ecommerce-stores" className="py-20 border-b border-white/10 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
-            <div className="lg:col-span-7 space-y-6">
+            <FadeInSection direction="left" className="lg:col-span-7 space-y-6">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 text-xs font-bold uppercase">
                 <ShoppingCart className="w-3.5 h-3.5" />
                 <span>Digital Retail Solutions</span>
@@ -346,87 +357,87 @@ const Services = () => {
               </p>
 
               <div className="space-y-4">
-                <div className="p-4 rounded-xl bg-[#202328] border border-[#2e333d]">
-                  <h4 className="text-base font-bold text-white flex items-center gap-2">
+                <CardSpotlight className="p-4 rounded-xl bg-[#121419] border border-white/10" spotlightColor="rgba(52, 211, 153, 0.15)">
+                  <h4 className="text-base font-bold text-white flex items-center gap-2 relative z-10">
                     <CheckCircle2 className="w-4 h-4 text-emerald-400" />
                     Frictionless Checkout & Multi-Channel Payments
                   </h4>
-                  <p className="text-xs text-gray-400 mt-1 leading-relaxed">
+                  <p className="text-xs text-gray-400 mt-1 leading-relaxed relative z-10">
                     Integrated UPI Intent flows, Cards, NetBanking, and Cash on Delivery (COD) with one-click checkout and reduced drop-offs.
                   </p>
-                </div>
+                </CardSpotlight>
 
-                <div className="p-4 rounded-xl bg-[#202328] border border-[#2e333d]">
-                  <h4 className="text-base font-bold text-white flex items-center gap-2">
+                <CardSpotlight className="p-4 rounded-xl bg-[#121419] border border-white/10" spotlightColor="rgba(52, 211, 153, 0.15)">
+                  <h4 className="text-base font-bold text-white flex items-center gap-2 relative z-10">
                     <CheckCircle2 className="w-4 h-4 text-emerald-400" />
                     Product Variations & Smart Filtering
                   </h4>
-                  <p className="text-xs text-gray-400 mt-1 leading-relaxed">
+                  <p className="text-xs text-gray-400 mt-1 leading-relaxed relative z-10">
                     High-speed facet filtering by price, size, color, brand, and category with instant instant-search autocomplete.
                   </p>
-                </div>
+                </CardSpotlight>
 
-                <div className="p-4 rounded-xl bg-[#202328] border border-[#2e333d]">
-                  <h4 className="text-base font-bold text-white flex items-center gap-2">
+                <CardSpotlight className="p-4 rounded-xl bg-[#121419] border border-white/10" spotlightColor="rgba(52, 211, 153, 0.15)">
+                  <h4 className="text-base font-bold text-white flex items-center gap-2 relative z-10">
                     <CheckCircle2 className="w-4 h-4 text-emerald-400" />
                     Admin Order & Inventory Control
                   </h4>
-                  <p className="text-xs text-gray-400 mt-1 leading-relaxed">
+                  <p className="text-xs text-gray-400 mt-1 leading-relaxed relative z-10">
                     Live inventory synchronization, discount code generators, customer order tracking, and automated invoice PDF generation.
                   </p>
-                </div>
+                </CardSpotlight>
               </div>
 
               <div className="pt-2">
                 <button
                   onClick={() => navigate('/contact-us')}
-                  className="px-6 py-3 rounded-xl font-bold bg-emerald-400 text-black hover:bg-emerald-300 transition-all flex items-center gap-2 text-sm shadow-lg shadow-emerald-400/20"
+                  className="px-6 py-3 rounded-xl font-bold bg-emerald-400 text-white hover:bg-emerald-300 transition-all flex items-center gap-2 text-sm shadow-lg shadow-emerald-400/20"
                 >
                   <span>Launch Your E-Commerce Store</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
-            </div>
+            </FadeInSection>
 
-            <div className="lg:col-span-5 bg-[#202328] rounded-3xl border border-[#393e47] p-6 sm:p-8 space-y-5 shadow-2xl">
+            <FadeInSection direction="right" className="lg:col-span-5 bg-[#121419] rounded-3xl border border-white/10 p-6 sm:p-8 space-y-5 shadow-2xl">
               <h3 className="text-lg font-bold text-white pb-3 border-b border-[#30353f] flex items-center justify-between">
                 <span>Store Capabilities</span>
                 <span className="text-xs text-emerald-400 font-mono">Ready to Scale</span>
               </h3>
 
               <div className="space-y-3 text-xs">
-                <div className="p-3 bg-[#18191d] rounded-xl border border-[#2e333d]">
+                <div className="p-3 bg-[#181a22] rounded-xl border border-white/10">
                   <div className="font-bold text-white">Payment Gateways</div>
                   <div className="text-gray-400 mt-0.5">Razorpay, Stripe, Cashfree, PayU, UPI QR, COD</div>
                 </div>
 
-                <div className="p-3 bg-[#18191d] rounded-xl border border-[#2e333d]">
+                <div className="p-3 bg-[#181a22] rounded-xl border border-white/10">
                   <div className="font-bold text-white">Shipping & Tracking</div>
                   <div className="text-gray-400 mt-0.5">Shiprocket, Delhivery API, Automated Tracking Links</div>
                 </div>
 
-                <div className="p-3 bg-[#18191d] rounded-xl border border-[#2e333d]">
+                <div className="p-3 bg-[#181a22] rounded-xl border border-white/10">
                   <div className="font-bold text-white">Marketing & Retention</div>
                   <div className="text-gray-400 mt-0.5">Abandoned Cart Recovery, WhatsApp Order Updates, Coupon Codes</div>
                 </div>
 
-                <div className="p-3 bg-[#18191d] rounded-xl border border-[#2e333d]">
+                <div className="p-3 bg-[#181a22] rounded-xl border border-white/10">
                   <div className="font-bold text-white">Security Standard</div>
                   <div className="text-gray-400 mt-0.5">PCI-DSS Compliant Workflows, SSL/TLS Encryption</div>
                 </div>
               </div>
-            </div>
+            </FadeInSection>
 
           </div>
         </div>
       </section>
 
       {/* DETAILED SERVICE 4: MAINTENANCE RETAINERS */}
-      <section id="maintenance-retainers" className="py-20 bg-[#16181b] border-b border-[#2d3038]">
+      <section id="maintenance-retainers" className="py-20 bg-[#16181b] border-b border-white/10 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             
-            <div className="space-y-6">
+            <FadeInSection direction="left" className="space-y-6">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/15 text-purple-400 border border-purple-500/30 text-xs font-bold uppercase">
                 <RefreshCw className="w-3.5 h-3.5" />
                 <span>Continuous Reliability</span>
@@ -441,31 +452,31 @@ const Services = () => {
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="p-4 rounded-xl bg-[#202328] border border-[#2e333d]">
-                  <h5 className="font-bold text-white text-sm">24/7 Uptime Monitoring</h5>
-                  <p className="text-xs text-gray-400 mt-1">Instant SMS/Slack alerts on server degradation or SSL renewals.</p>
-                </div>
-                <div className="p-4 rounded-xl bg-[#202328] border border-[#2e333d]">
-                  <h5 className="font-bold text-white text-sm">Security & Patching</h5>
-                  <p className="text-xs text-gray-400 mt-1">Regular npm dependency upgrades and vulnerability mitigation.</p>
-                </div>
-                <div className="p-4 rounded-xl bg-[#202328] border border-[#2e333d]">
-                  <h5 className="font-bold text-white text-sm">Automated Daily Backups</h5>
-                  <p className="text-xs text-gray-400 mt-1">Encrypted off-site backups with one-click disaster recovery.</p>
-                </div>
-                <div className="p-4 rounded-xl bg-[#202328] border border-[#2e333d]">
-                  <h5 className="font-bold text-white text-sm">Feature Iterations</h5>
-                  <p className="text-xs text-gray-400 mt-1">Dedicated developer hours every month for UI tweaks and improvements.</p>
-                </div>
+                <CardSpotlight className="p-4 rounded-xl bg-[#121419] border border-white/10" spotlightColor="rgba(168, 85, 247, 0.15)">
+                  <h5 className="font-bold text-white text-sm relative z-10">24/7 Uptime Monitoring</h5>
+                  <p className="text-xs text-gray-400 mt-1 relative z-10">Instant SMS/Slack alerts on server degradation or SSL renewals.</p>
+                </CardSpotlight>
+                <CardSpotlight className="p-4 rounded-xl bg-[#121419] border border-white/10" spotlightColor="rgba(168, 85, 247, 0.15)">
+                  <h5 className="font-bold text-white text-sm relative z-10">Security & Patching</h5>
+                  <p className="text-xs text-gray-400 mt-1 relative z-10">Regular npm dependency upgrades and vulnerability mitigation.</p>
+                </CardSpotlight>
+                <CardSpotlight className="p-4 rounded-xl bg-[#121419] border border-white/10" spotlightColor="rgba(168, 85, 247, 0.15)">
+                  <h5 className="font-bold text-white text-sm relative z-10">Automated Daily Backups</h5>
+                  <p className="text-xs text-gray-400 mt-1 relative z-10">Encrypted off-site backups with one-click disaster recovery.</p>
+                </CardSpotlight>
+                <CardSpotlight className="p-4 rounded-xl bg-[#121419] border border-white/10" spotlightColor="rgba(168, 85, 247, 0.15)">
+                  <h5 className="font-bold text-white text-sm relative z-10">Feature Iterations</h5>
+                  <p className="text-xs text-gray-400 mt-1 relative z-10">Dedicated developer hours every month for UI tweaks and improvements.</p>
+                </CardSpotlight>
               </div>
-            </div>
+            </FadeInSection>
 
-            <div className="bg-[#202328] rounded-3xl border border-[#393e47] p-8 space-y-6">
+            <FadeInSection direction="right" className="bg-[#121419] rounded-3xl border border-white/10 p-8 space-y-6">
               <h3 className="text-xl font-bold text-white">Protect Your Digital Investment</h3>
               <p className="text-sm text-[#9da4b2]">
                 Avoid unexpected downtime and security breaches. Choose a flexible monthly retainer that guarantees priority engineering attention whenever you need it.
               </p>
-              <div className="p-4 rounded-xl bg-[#18191d] border border-[#2e333d] space-y-2">
+              <div className="p-4 rounded-xl bg-[#181a22] border border-white/10 space-y-2">
                 <div className="text-xs text-gray-400">Standard Retainer Inclusions:</div>
                 <div className="text-xs text-white space-y-1">
                   <div>✓ Response SLA within 2 hours for critical incidents</div>
@@ -475,12 +486,12 @@ const Services = () => {
               </div>
               <button
                 onClick={() => navigate('/contact-us')}
-                className="w-full py-3.5 rounded-xl font-bold bg-[#FD6703] text-black hover:bg-[#e65c00] transition-all flex items-center justify-center gap-2 shadow-lg shadow-[#FD6703]/20"
+                className="w-full py-3.5 rounded-xl font-bold bg-[#FD6703] text-white hover:bg-[#e65c00] transition-all flex items-center justify-center gap-2 shadow-lg shadow-[#FD6703]/20"
               >
                 <span>Inquire About Retainers</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
-            </div>
+            </FadeInSection>
 
           </div>
         </div>
@@ -508,38 +519,53 @@ const Services = () => {
               <button
                 key={cat.key}
                 onClick={() => setActiveTechCategory(cat.key)}
-                className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all ${
+                className={`relative px-4 py-1.5 rounded-full text-xs font-semibold transition-all ${
                   activeTechCategory === cat.key
-                    ? 'bg-[#FD6703] text-black font-bold shadow'
-                    : 'bg-[#202328] text-gray-300 hover:text-white border border-[#32363f]'
+                    ? 'text-white font-bold'
+                    : 'bg-[#121419] text-gray-300 hover:text-white border border-[#32363f]'
                 }`}
               >
-                {cat.label}
+                {activeTechCategory === cat.key && (
+                  <motion.div
+                    layoutId="tech-filter-active"
+                    className="absolute inset-0 bg-[#FD6703] rounded-full shadow"
+                    initial={false}
+                    transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                  />
+                )}
+                <span className="relative z-10">{cat.label}</span>
               </button>
             ))}
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredTech.map((tech, idx) => (
-            <div
-              key={idx}
-              className="p-5 rounded-xl bg-[#202328] border border-[#32363f] flex items-start gap-4 hover:border-[#FD6703]/40 transition-colors"
-            >
-              <div className="w-10 h-10 rounded-lg bg-[#2a2e36] text-[#FD6703] flex items-center justify-center shrink-0">
-                <Boxes className="w-5 h-5" />
-              </div>
-              <div>
-                <h4 className="text-base font-bold text-white">{tech.name}</h4>
-                <p className="text-xs text-gray-400 mt-1">{tech.desc}</p>
-              </div>
-            </div>
-          ))}
-        </div>
+        <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <AnimatePresence>
+            {filteredTech.map((tech) => (
+              <motion.div
+                key={tech.name}
+                layout
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.2 }}
+                className="p-5 rounded-xl bg-[#121419] border border-[#32363f] flex items-start gap-4 hover:border-[#FD6703]/40 transition-colors"
+              >
+                <div className="w-10 h-10 rounded-lg bg-[#2a2e36] text-[#FD6703] flex items-center justify-center shrink-0">
+                  <Boxes className="w-5 h-5" />
+                </div>
+                <div>
+                  <h4 className="text-base font-bold text-white">{tech.name}</h4>
+                  <p className="text-xs text-gray-400 mt-1">{tech.desc}</p>
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
       </section>
 
       {/* OUR 5-STEP DEVELOPMENT METHODOLOGY */}
-      <section className="py-20 bg-[#16181b] border-t border-[#2d3038]">
+      <section className="py-20 bg-[#16181b] border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-16 space-y-2">
             <span className="text-[#FD6703] text-xs uppercase font-bold tracking-wider">How We Deliver</span>
@@ -551,23 +577,22 @@ const Services = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
             {processSteps.map((step, idx) => (
-              <div
-                key={idx}
-                className="bg-[#202328] p-6 rounded-2xl border border-[#32363f] relative flex flex-col justify-between"
-              >
-                <div>
-                  <div className="text-3xl font-black text-[#FD6703]/80 mb-3 font-mono">{step.step}</div>
-                  <h4 className="text-lg font-bold text-white mb-2">{step.title}</h4>
-                  <p className="text-xs text-gray-400 leading-relaxed">{step.desc}</p>
+              <FadeInSection key={idx} delay={idx * 0.1}>
+                <div className="bg-[#121419] p-6 rounded-2xl border border-[#32363f] relative flex flex-col justify-between h-full">
+                  <div>
+                    <div className="text-3xl font-black text-[#FD6703]/80 mb-3 font-mono">{step.step}</div>
+                    <h4 className="text-lg font-bold text-white mb-2">{step.title}</h4>
+                    <p className="text-xs text-gray-400 leading-relaxed">{step.desc}</p>
+                  </div>
                 </div>
-              </div>
+              </FadeInSection>
             ))}
           </div>
         </div>
       </section>
 
       {/* BOTTOM CTA */}
-      <section className="py-20 bg-gradient-to-br from-[#FD6703] to-[#ff7e29] text-black">
+      <section className="py-20 bg-gradient-to-br from-[#FD6703] to-[#ff7e29] text-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
           <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight">
             Have a Project in Mind? Let's Architect It Together.
@@ -578,13 +603,13 @@ const Services = () => {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
             <Link
               to="/contact-us"
-              className="w-full sm:w-auto px-8 py-4 rounded-xl font-bold bg-[#191b1f] text-white hover:bg-black transition-all shadow-xl"
+              className="w-full sm:w-auto px-8 py-4 rounded-xl font-bold bg-[#191b1f] text-white hover:bg-black transition-all shadow-xl animate-shimmer bg-[linear-gradient(110deg,#191b1f,45%,#323640,55%,#191b1f)] bg-[length:200%_100%]"
             >
               Get Free Project Scope & Quote
             </Link>
             <Link
               to="/maintenance-system"
-              className="w-full sm:w-auto px-8 py-4 rounded-xl font-bold bg-white text-black hover:bg-gray-100 transition-all shadow-lg"
+              className="w-full sm:w-auto px-8 py-4 rounded-xl font-bold bg-white text-[#0b0c0e] hover:bg-gray-100 transition-all shadow-lg"
             >
               View Maintenance System
             </Link>

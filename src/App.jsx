@@ -7,12 +7,11 @@ import Services from './pages/Services';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import PortalLogin from './pages/PortalLogin';
-import './App.css';
 
 const App = () => {
   return (
     <Router>
-      <div className="min-h-screen flex flex-col bg-[#191b1f] text-gray-200 selection:bg-[#FD6703] selection:text-white">
+      <div className="min-h-screen flex flex-col bg-[#0b0c0e] text-gray-200 selection:bg-[#FD6703] selection:text-white">
         <Navbar />
         <main className="flex-grow">
           <Routes>
